@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Cloner le frontend
 RUN apk add --no-cache git && \
-    git clone https://github.com/ton-org/docnote-front.git . && \
+    git clone -b test https://github.com/StayZe/docnote-front.git . && \
     npm install && \
     npm run build
 
