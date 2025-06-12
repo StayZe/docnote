@@ -1,11 +1,11 @@
 FROM node:18-alpine
 
+# Clone le repo dans le bon dossier dès le départ
+RUN apk add --no-cache git && \
+    git clone -b test https://github.com/StayZe/docnote-front.git /app
+
 WORKDIR /app
 
-# Cloner le frontend
-RUN apk add --no-cache git && \
-    git clone -b test https://github.com/StayZe/docnote-front.git . && \
-    npm install && \
-    npm run build
+RUN npm install && npm run build
 
 CMD ["npm", "run", "start"]
