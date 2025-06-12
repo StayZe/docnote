@@ -1,22 +1,27 @@
-FROM node:18-alpine
+# Étape 1 : Build
+FROM node:18-alpine AS builder
 
-# Install git to clone if necessary (you can remove this if COPY is used)
+# Installer git si nécessaire pour cloner
 RUN apk add --no-cache git
 
-# Set working directory
 WORKDIR /app
 
-# Clone repo or COPY for local dev (recommend COPY during active dev)
+# Cloner le dépôt
 RUN git clone -b test https://github.com/StayZe/docnote.git /app
 
-# Prefer local copy in dev
-COPY . .
+# Installer dépendances et build
+RUN npm install && npm run build
 
-# Install deps and build
-RUN npm install
+# Étape 2 : Image finale minimaliste
+FROM node:18-alpine
 
-# Expose port if needed (default Next.js is 3000)
+WORKDIR /app
+
+# Copier uniquement ce qu'il faut depuis l'étape de build
+COPY --from=builder /app ./
+
+# Exposer le port par défaut de Next.js (en mode production)
 EXPOSE 3000
 
-# Dev command for hot-reloading
-CMD ["npm", "run", "dev"]
+# Lancer l'app Next.js
+CMD ["npm", "start"]

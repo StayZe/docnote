@@ -1,10 +1,12 @@
+version: "3.8"
+
 services:
   frontend:
     build: ./nextjs
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8055
+      - NEXT_PUBLIC_API_URL=http://directus:8055
     depends_on:
       - directus
 
