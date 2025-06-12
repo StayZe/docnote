@@ -11,5 +11,18 @@ Ce projet vous permet de lancer une instance Next.js (frontend) + Directus (CMS 
 
 ---
 
-## 📁 Structure
-
+## 🚀 Installation
+```
+docker run -d \
+  --name docnote-directus \
+  --env-file ./directus/directus.env \
+  -v $(pwd)/directus/schema:/directus/schema \
+  -p 8055:8055 \
+  --link docnote-db:db \
+  directus/directus:latest \
+  sh -c "
+    npx directus bootstrap &&
+    npx directus schema apply /directus/schema/schema.yaml &&
+    npx directus start
+  "
+```
