@@ -12,6 +12,7 @@ Ce projet vous permet de lancer une instance Next.js (frontend) + Directus (CMS 
 Cette instance docker fonctionne sur Linux mais n'est pas recommandé sur Windows ni MacOS.
 
 ## 🚀 Installation
+### Méthode 1 :
 Cloner le repo qui va créer un dossier puis rentrer dedans :
 ```
 git clone https://github.com/StayZe/docnote.git
@@ -22,19 +23,15 @@ Lancer via Docker compose (**recommandé**) :
 docker compose up -d
 ```
 
-Ou lancer via docker run :
+### Méthode 2 :
+Via portainer pour créer la stack automatiquement :
 
-```
-docker run -d \
-  --name docnote-directus \
-  --env-file ./directus/directus.env \
-  -v $(pwd)/directus/schema:/directus/schema \
-  -p 8055:8055 \
-  --link docnote-db:db \
-  directus/directus:latest \
-  sh -c "
-    npx directus bootstrap &&
-    npx directus schema apply /directus/schema/schema.yaml &&
-    npx directus start
-  "
-```
+stack -> add stack -> Repository
+
+Ajouter un nom à la stack :
+```Docnote```
+
+Repository URL : 
+```https://github.com/StayZe/docnote.git```
+
+Tout en bas le bouton : **[ deploy the stack ]**
