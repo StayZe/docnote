@@ -18,7 +18,7 @@ Cloner le repo qui va créer un dossier puis rentrer dedans :
 git clone https://github.com/StayZe/docnote.git
 cd docnote
 ```
-Lancer via Docker compose (**recommandé**) :
+Lancer via Docker compose :
 ```
 docker compose up -d
 ```
