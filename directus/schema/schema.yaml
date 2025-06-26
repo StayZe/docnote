@@ -1,5 +1,5 @@
 version: 1
-directus: 11.6.1
+directus: 11.8.0
 vendor: postgres
 collections:
   - collection: note

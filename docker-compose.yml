@@ -14,6 +14,7 @@ services:
   db:
     image: postgres:15
     container_name: directus_db
+    platform: linux/arm64
     restart: always
     environment:
       POSTGRES_DB: directus
@@ -29,18 +30,16 @@ services:
       - "8055:8055"
     volumes:
       - ./directus/schema:/directus/schema
+      - ./directus/directus.config.js:/directus/directus.config.js
     env_file:
       - ./directus/directus.env
     depends_on:
       - db
     entrypoint: >
       sh -c "
-        if [ ! -f ./directus.config.js ]; then
-          npx directus init;
-        fi &&
-        npx directus bootstrap &&
-        npx directus schema apply /directus/schema/schema.yaml &&
-        npx directus start
+      npx directus bootstrap &&
+      npx directus schema apply /directus/schema/schema.yaml --yes &&
+      npx directus start
       "
 
 volumes:
